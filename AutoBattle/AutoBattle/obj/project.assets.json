@@ -8,24 +8,19 @@
     ".NETCoreApp,Version=v3.1": []
   },
   "packageFolders": {
-    "C:\\Users\\ezio.filho\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\maraca\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ezio.filho\\source\\repos\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
+      "projectUniqueName": "C:\\Users\\maraca\\Documents\\GitHub\\kokku_test\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
       "projectName": "AutoBattle",
-      "projectPath": "C:\\Users\\ezio.filho\\source\\repos\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
-      "packagesPath": "C:\\Users\\ezio.filho\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ezio.filho\\source\\repos\\AutoBattle\\AutoBattle\\obj\\",
+      "projectPath": "C:\\Users\\maraca\\Documents\\GitHub\\kokku_test\\AutoBattle\\AutoBattle\\AutoBattle.csproj",
+      "packagesPath": "C:\\Users\\maraca\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\maraca\\Documents\\GitHub\\kokku_test\\AutoBattle\\AutoBattle\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\ezio.filho\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\maraca\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -65,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.408\\RuntimeIdentifierGraph.json"
       }
     }
   }

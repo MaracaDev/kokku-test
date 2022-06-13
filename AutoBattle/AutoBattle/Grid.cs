@@ -18,11 +18,12 @@ namespace AutoBattle
             Console.WriteLine("The battle field has been created\n");
             for (int i = 0; i < Lines; i++)
             {
-                    grids.Add(newBox);
+                    
                 for(int j = 0; j < Columns; j++)
                 {
                     GridBox newBox = new GridBox(j, i, false, (Columns * i + j));
-                    Console.Write($"{newBox.Index}\n");
+                    grids.Add(newBox);
+                    
                 }
             }
         }
@@ -30,20 +31,28 @@ namespace AutoBattle
         // prints the matrix that indicates the tiles of the battlefield
         public void drawBattlefield(int Lines, int Columns)
         {
+            
             for (int i = 0; i < Lines; i++)
             {
                 for (int j = 0; j < Columns; j++)
                 {
-                    GridBox currentgrid = new GridBox();
-                    if (currentgrid.ocupied)
+                    foreach (GridBox current_grid in grids)
                     {
-                        //if()
-                        Console.Write("[X]\t");
+                        if(current_grid.xIndex == i && current_grid.yIndex == j)
+                        {
+                            if (current_grid.ocupied)
+                            {
+                                Console.Write("[X]\t");
+                            }
+
+                            else if (!current_grid.ocupied)
+                            {
+                                Console.Write($"[ ]\t");
+                            }
+                        }
                     }
-                    else
-                    {
-                        Console.Write($"[ ]\t");
-                    }
+                    
+                        
                 }
                 Console.Write(Environment.NewLine + Environment.NewLine);
             }

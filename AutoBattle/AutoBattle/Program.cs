@@ -13,6 +13,7 @@ namespace AutoBattle
         {
             Grid grid = new Grid(5, 5);
             CharacterClass playerCharacterClass;
+            CharacterClass enemyCharacterClass;
             GridBox PlayerCurrentLocation;
             GridBox EnemyCurrentLocation;
             Character PlayerCharacter;
@@ -59,12 +60,10 @@ namespace AutoBattle
 
             void CreatePlayerCharacter(int classIndex)
             {
-               
-                CharacterClass characterClass = (CharacterClass)classIndex;
-                Console.WriteLine($"Player Class Choice: {characterClass}");
-                PlayerCharacter = new Character(characterClass);
-                PlayerCharacter.Health = 100;
-                PlayerCharacter.BaseDamage = 20;
+
+                playerCharacterClass = (CharacterClass)classIndex;
+                Console.WriteLine($"Player Class Choice: {playerCharacterClass.ToString()}");
+                PlayerCharacter = new Character(playerCharacterClass);
                 PlayerCharacter.PlayerIndex = 0;
                 
                 CreateEnemyCharacter();
@@ -76,12 +75,11 @@ namespace AutoBattle
                 //randomly choose the enemy class and set up vital variables
                 var rand = new Random();
                 int randomInteger = rand.Next(1, 4);
-                CharacterClass enemyClass = (CharacterClass)randomInteger;
-                Console.WriteLine($"Enemy Class Choice: {enemyClass}");
-                EnemyCharacter = new Character(enemyClass);
-                EnemyCharacter.Health = 100;
-                PlayerCharacter.BaseDamage = 20;
-                PlayerCharacter.PlayerIndex = 1;
+                enemyCharacterClass = (CharacterClass)randomInteger;
+                Console.WriteLine($"Enemy Class Choice: {enemyCharacterClass}");
+                EnemyCharacter = new Character(enemyCharacterClass);
+                EnemyCharacter.PlayerIndex = 1;
+                Setup_class_info(playerCharacterClass, enemyCharacterClass);
                 StartGame();
 
             }
@@ -98,16 +96,63 @@ namespace AutoBattle
 
             }
 
+            void Setup_class_info(CharacterClass player_class, CharacterClass enemy_class)
+            {
+                switch (player_class)
+                {
+                    case CharacterClass.Paladin:
+                        PlayerCharacter.Health = 120;
+                        PlayerCharacter.BaseDamage = 10;
+                        PlayerCharacter.DamageMultiplier = 1.5f;
+                        break;
+                    case CharacterClass.Warrior:
+                        PlayerCharacter.Health = 100;
+                        PlayerCharacter.BaseDamage = 20;
+                        PlayerCharacter.DamageMultiplier = 1.6f;
+                        break;
+                    case CharacterClass.Cleric:
+                        PlayerCharacter.Health = 150;
+                        PlayerCharacter.BaseDamage = 5;
+                        PlayerCharacter.DamageMultiplier = 1.1f;
+                        break;
+                    case CharacterClass.Archer:
+                        PlayerCharacter.Health = 70;
+                        PlayerCharacter.BaseDamage = 20;
+                        PlayerCharacter.DamageMultiplier = 2;
+                        break;
+                }
+
+                switch (enemy_class)
+                {
+                    case CharacterClass.Paladin:
+                        EnemyCharacter.Health = 120;
+                        EnemyCharacter.BaseDamage = 10;
+                        EnemyCharacter.DamageMultiplier = 1.5f;
+                        break;
+                    case CharacterClass.Warrior:
+                        EnemyCharacter.Health = 100;
+                        EnemyCharacter.BaseDamage = 20;
+                        EnemyCharacter.DamageMultiplier = 1.6f;
+                        break;
+                    case CharacterClass.Cleric:
+                        EnemyCharacter.Health = 150;
+                        EnemyCharacter.BaseDamage = 5;
+                        EnemyCharacter.DamageMultiplier = 1.1f;
+                        break;
+                    case CharacterClass.Archer:
+                        EnemyCharacter.Health = 70;
+                        EnemyCharacter.BaseDamage = 20;
+                        EnemyCharacter.DamageMultiplier = 2;
+                        break;
+                }
+            }
+
             void StartTurn(){
 
-                if (currentTurn == 0)
-                {
-                    //AllPlayers.Sort();  
-                }
 
                 foreach(Character character in AllPlayers)
                 {
-                    character.StartTurn(grid);
+                    character.StartTurn(grid, PlayerCharacter, EnemyCharacter);
                 }
 
                 currentTurn++;
@@ -116,14 +161,15 @@ namespace AutoBattle
 
             void HandleTurn()
             {
-                if(PlayerCharacter.Health == 0)
+                if(PlayerCharacter.Health <= 0)
                 {
+                    Console.Write("Lose");
                     return;
-                } else if (EnemyCharacter.Health == 0)
+                } else if (EnemyCharacter.Health <= 0)
                 {
                     Console.Write(Environment.NewLine + Environment.NewLine);
 
-                    // endgame?
+                    Console.Write("Win");
 
                     Console.Write(Environment.NewLine + Environment.NewLine);
 
@@ -154,7 +200,7 @@ namespace AutoBattle
 
             void AlocatePlayerCharacter()
             {
-                int random = 0;
+                int random = GetRandomInt(0,grid.grids.Count);
                 GridBox RandomLocation = (grid.grids.ElementAt(random));
                 Console.Write($"{random}\n");
                 if (!RandomLocation.ocupied)
@@ -163,6 +209,7 @@ namespace AutoBattle
                     RandomLocation.ocupied = true;
                     grid.grids[random] = RandomLocation;
                     PlayerCharacter.currentBox = grid.grids[random];
+                    
                     AlocateEnemyCharacter();
                 } else
                 {
@@ -172,7 +219,7 @@ namespace AutoBattle
 
             void AlocateEnemyCharacter()
             {
-                int random = 24;
+                int random = GetRandomInt(0, grid.grids.Count);
                 GridBox RandomLocation = (grid.grids.ElementAt(random));
                 Console.Write($"{random}\n");
                 if (!RandomLocation.ocupied)
@@ -181,6 +228,7 @@ namespace AutoBattle
                     RandomLocation.ocupied = true;
                     grid.grids[random] = RandomLocation;
                     EnemyCharacter.currentBox = grid.grids[random];
+                    
                     grid.drawBattlefield(5 , 5);
                 }
                 else
